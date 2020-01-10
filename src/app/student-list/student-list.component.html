@@ -1,0 +1,27 @@
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Фамилия</th>
+    <th>Имя</th>
+    <th>Отчество</th>
+    <th>Дата рождения</th>
+    <th>Средний балл</th>
+  </tr>
+  <tr *ngFor="let student of students;">
+    <td>{{student.id}}</td>
+    <td>{{student.surname}}</td>
+    <td>{{student.name}}</td>
+    <td>{{student.patronymic}}</td>
+    <td>{{student.birthday}}</td>
+    <td [ngClass]="{badGrade: student.averageMark <= 3 && isBadGrade}">{{student.averageMark}}</td>
+  </tr>
+</table>
+<!--<p>{{isBadGrade?"Скрыть лузеров":"Отобразить лузеров"}}</p>-->
+<!--<div *ngIf="!isBadGrade">спрятать контент по переключателю-->
+<!--  <p>Lorem ipsum</p>-->
+<!--</div>-->
+<p>чек лузеров</p>
+<div class="toggleBadGrade" >
+    <input class="tgl tgl-skewed" id="cb3" type="checkbox" (click)="toggleBadGrade()"/>
+    <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="cb3"></label>
+</div>
