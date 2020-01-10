@@ -1,4 +1,32 @@
-<table>
+<p>чек лузеров</p>
+<div class="toggleBadGrade" >
+  <input class="tgl tgl-skewed" id="cb3" type="checkbox" (click)="toggleBadGrade()"/>
+  <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="cb3"></label>
+</div>
+
+
+<form name="form1">
+  <span>
+    <select>
+      <option selected="selected">Год рождения</option>
+      <option *ngFor="let student of students;">{{student.birthday.getFullYear()}}</option>
+    </select>
+  </span>
+
+  <span>
+    <select>
+      <option selected="selected">Оценка</option>
+      <option *ngFor="let student of students;">{{student.averageMark}}</option>
+    </select>
+  </span>
+
+  <span><input type="submit" value="Применить"></span>
+</form>
+
+
+<input type="text" class="input" (keyup)="search($event)">
+
+<table cellspacing="0" *ngIf="students.length !== 0; else notFoundMess;">
   <tr>
     <th>ID</th>
     <th>Фамилия</th>
@@ -7,21 +35,19 @@
     <th>Дата рождения</th>
     <th>Средний балл</th>
   </tr>
-  <tr *ngFor="let student of students;">
+  <tr *ngFor="let student of students;" [ngClass]="{isFound: isFound}">
     <td>{{student.id}}</td>
     <td>{{student.surname}}</td>
     <td>{{student.name}}</td>
     <td>{{student.patronymic}}</td>
-    <td>{{student.birthday}}</td>
+    <td>{{student.birthday.toLocaleDateString() }}</td>
     <td [ngClass]="{badGrade: student.averageMark <= 3 && isBadGrade}">{{student.averageMark}}</td>
   </tr>
 </table>
+<ng-template #notFoundMess>По данному фильтру контактов не найдено</ng-template>
 <!--<p>{{isBadGrade?"Скрыть лузеров":"Отобразить лузеров"}}</p>-->
 <!--<div *ngIf="!isBadGrade">спрятать контент по переключателю-->
 <!--  <p>Lorem ipsum</p>-->
 <!--</div>-->
-<p>чек лузеров</p>
-<div class="toggleBadGrade" >
-    <input class="tgl tgl-skewed" id="cb3" type="checkbox" (click)="toggleBadGrade()"/>
-    <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="cb3"></label>
-</div>
+
+

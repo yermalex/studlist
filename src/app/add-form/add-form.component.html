@@ -1,0 +1,33 @@
+<div class="add-form">
+  <input type="text"
+         class="formControl"
+         placeholder="ID..."
+         [(ngModel)]="id"
+  >
+  <input type="text"
+         class="formControl"
+         placeholder="Surname..."
+         [(ngModel)]="surname"
+  >
+  <input type="text"
+         class="formControl"
+         placeholder="Name..."
+         [(ngModel)]="name"
+  >
+  <input type="text"
+         class="formControl"
+         placeholder="Patronymic..."
+         [(ngModel)]="patronymic"
+  >
+  <label for="start">birthday:</label>
+  <input type="date" id="start"
+         class="formControl"
+         [(ngModel)]="birthday">
+  <input type="text"
+         class="formControl"
+         placeholder="AverageMark..."
+         [(ngModel)]="averageMark"
+  >
+
+  <button class="btn" (click)="addPost()">Добавить студента</button>
+</div>

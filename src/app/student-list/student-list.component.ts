@@ -8,18 +8,33 @@ import { Students} from './students.mockup';
   styleUrls: ['./student-list.component.less']
 })
 export class StudentListComponent implements OnInit {
-  public students: Student[] = Students.students;
+  public students: Student[] = [];
   isBadGrade = false;
+  isFound = false;
 
   constructor() {
 
   }
 
   ngOnInit() {
+    this.students = Students.students;
   }
 
-  toggleBadGrade(): void {
+  public toggleBadGrade(): void {
     this.isBadGrade = !this.isBadGrade;
+  }
+
+  public search(e: KeyboardEvent) {
+    const value = (e.target as HTMLInputElement).value.toLowerCase();
+    if (value) {
+      this.students = this.students.filter(stud => stud.surname.toLowerCase().includes(value) ||
+        stud.name.toLowerCase().includes(value) ||
+        stud.patronymic.toLowerCase().includes(value));
+      this.isFound = true;
+    } else {
+      this.students = Students.students;
+      this.isFound = false;
+    }
   }
 
 

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Student} from './models/student';
+import {Students} from './student-list/students.mockup';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
+
+  // updateStudents(stud: Student) {
+  //   Students.students.unshift(stud);
+  //   console.log(Students.students);
+  // }
+
 
 }

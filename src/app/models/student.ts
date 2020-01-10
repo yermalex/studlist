@@ -12,11 +12,11 @@ export class Student {
               patronymic: string,
               birthday: Date,
               averageMark: number) {
-  this.id = id;
-  this.surname = surname;
-  this.name = name;
-  this.patronymic = patronymic;
-  this.birthday = birthday;
-  this.averageMark = averageMark;
+    this.id = id;
+    this.surname = surname;
+    this.name = name;
+    this.patronymic = patronymic;
+    this.birthday = birthday;
+    this.averageMark = averageMark;
   }
 }
