@@ -5,26 +5,12 @@
 </div>
 
 
-<form name="form1">
-  <span>
-    <select>
-      <option selected="selected">Год рождения</option>
-      <option *ngFor="let student of students;">{{student.birthday.getFullYear()}}</option>
-    </select>
-  </span>
-
-  <span>
-    <select>
-      <option selected="selected">Оценка</option>
-      <option *ngFor="let student of students;">{{student.averageMark}}</option>
-    </select>
-  </span>
-
-  <span><input type="submit" value="Применить"></span>
-</form>
+<input type="text" placeholder="ср балл" [(ngModel)]="markForFiltering" (ngModelChange)="splitFiltering()">
+<input type="date" placeholder="др" [(ngModel)]="dateForFiltering" (ngModelChange)="splitFiltering()">
 
 
 <input type="text" class="input"  [(ngModel)]="inputValue">
+
 
 <table *ngIf="students.length !== 0; else notFoundMess;">
   <tr>
@@ -44,7 +30,7 @@
     <td [ngClass]="{badGrade: student.averageMark <= 3 && isBadGrade}">{{student.averageMark}}</td>
   </tr>
 </table>
-<ng-template #notFoundMess>По данному фильтру контактов не найдено</ng-template>
+<ng-template #notFoundMess>По данному фильтру студентов не найдено</ng-template>
 
 
 

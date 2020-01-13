@@ -12,6 +12,8 @@ export class StudentListComponent implements OnInit {
   public students: Student[] = [];
   isBadGrade = false;
   inputValue = '';
+  markForFiltering: number;
+  dateForFiltering: Date;
 
   constructor() {
   }
@@ -20,21 +22,9 @@ export class StudentListComponent implements OnInit {
     this.students = Students.students;
   }
 
-  public toggleBadGrade(): void {
+  toggleBadGrade(): void {
     this.isBadGrade = !this.isBadGrade;
   }
-
-  // public search(e: KeyboardEvent) {
-  //   this.invalue = (e.target as HTMLInputElement).value.toLowerCase();
-  //   // if (this.invalue) {
-  //   //   this.students = this.students.filter(stud => stud.surname.toLowerCase().includes(this.invalue) ||
-  //   //     stud.name.toLowerCase().includes(this.invalue) ||
-  //   //     stud.patronymic.toLowerCase().includes(this.invalue));
-  //   //
-  //   // } else {
-  //   //   this.students = Students.students;
-  //   // }
-  // }
 
   findStud(student: Student): boolean {
     if (!this.inputValue.trim()) {
@@ -47,6 +37,63 @@ export class StudentListComponent implements OnInit {
     }
   }
 
+// функции фильтрации, нужно будет отрефакторить, оптимизировать
+  markFiltering(): void {
+    if (!this.markForFiltering) {
+      this.students = Students.students;
+    } else {
+      this.students = Students.students.filter( student => {
+        return student.averageMark.toString() === this.markForFiltering.toString();
+      });
+    }
+  }
+
+  dateFiltering(): void {
+    if (!this.dateForFiltering) {
+      this.students = Students.students;
+    } else {
+      const dateOfBirthday = new Date(this.dateForFiltering);
+      this.students = Students.students.filter( student => {
+        return student.birthday.toLocaleDateString() === dateOfBirthday.toLocaleDateString();
+      });
+    }
+  }
+
+  splitFiltering(): void {
+    if (!this.markForFiltering && !this.dateForFiltering) {
+      this.students = Students.students;
+      console.log('не то не то');
+    }
+
+    if (this.dateForFiltering) {
+      const dateOfBirthday = new Date(this.dateForFiltering);
+      this.students = Students.students.filter( student => {
+        return student.birthday.toLocaleDateString() === dateOfBirthday.toLocaleDateString();
+      });
+      console.log('дата есть');
+      if (this.markForFiltering && this.dateForFiltering) {
+        this.students = Students.students.filter( student => {
+          return (student.averageMark.toString() === this.markForFiltering.toString()) && (student.birthday.toLocaleDateString() === dateOfBirthday.toLocaleDateString());
+        });
+        console.log('и то и то');
+      }
+    }
+
+    if (this.markForFiltering) {
+      this.students = Students.students.filter( student => {
+        return student.averageMark.toString() === this.markForFiltering.toString();
+      });
+      console.log('оценка есть');
+      if (this.markForFiltering && this.dateForFiltering) {
+        const dateOfBirthday = new Date(this.dateForFiltering);
+        this.students = Students.students.filter( student => {
+          return (student.averageMark.toString() === this.markForFiltering.toString()) && (student.birthday.toLocaleDateString() === dateOfBirthday.toLocaleDateString());
+        });
+        console.log('и то и то');
+      }
+    }
+
+  }
 
 
 
