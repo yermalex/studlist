@@ -31,7 +31,7 @@ export class AddFormComponent implements OnInit {
         surname: this.surname,
         name: this.name,
         patronymic: this.patronymic,
-        birthday: this.birthday,
+        birthday: new Date(this.birthday),
         averageMark: this.averageMark
       };
       this.onAdd.emit(stud);
