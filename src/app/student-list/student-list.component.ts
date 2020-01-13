@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Student} from '../models/student';
 import { Students} from './students.mockup';
 
@@ -8,12 +8,12 @@ import { Students} from './students.mockup';
   styleUrls: ['./student-list.component.less']
 })
 export class StudentListComponent implements OnInit {
+
   public students: Student[] = [];
   isBadGrade = false;
-  isFound = false;
+  inputValue = '';
 
   constructor() {
-
   }
 
   ngOnInit() {
@@ -24,18 +24,30 @@ export class StudentListComponent implements OnInit {
     this.isBadGrade = !this.isBadGrade;
   }
 
-  public search(e: KeyboardEvent) {
-    const value = (e.target as HTMLInputElement).value.toLowerCase();
-    if (value) {
-      this.students = this.students.filter(stud => stud.surname.toLowerCase().includes(value) ||
-        stud.name.toLowerCase().includes(value) ||
-        stud.patronymic.toLowerCase().includes(value));
-      this.isFound = true;
-    } else {
-      this.students = Students.students;
-      this.isFound = false;
+  // public search(e: KeyboardEvent) {
+  //   this.invalue = (e.target as HTMLInputElement).value.toLowerCase();
+  //   // if (this.invalue) {
+  //   //   this.students = this.students.filter(stud => stud.surname.toLowerCase().includes(this.invalue) ||
+  //   //     stud.name.toLowerCase().includes(this.invalue) ||
+  //   //     stud.patronymic.toLowerCase().includes(this.invalue));
+  //   //
+  //   // } else {
+  //   //   this.students = Students.students;
+  //   // }
+  // }
+
+  findStud(student: Student): boolean {
+    if (!this.inputValue.trim()) {
+      return false;
+    }
+    if (student.surname.toLocaleLowerCase().includes(this.inputValue.toLowerCase())
+    || student.name.toLocaleLowerCase().includes(this.inputValue.toLowerCase())
+    || student.patronymic.toLocaleLowerCase().includes(this.inputValue.toLowerCase())) {
+      return true;
     }
   }
+
+
 
 
 }

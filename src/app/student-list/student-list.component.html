@@ -24,9 +24,9 @@
 </form>
 
 
-<input type="text" class="input" (keyup)="search($event)">
+<input type="text" class="input"  [(ngModel)]="inputValue">
 
-<table cellspacing="0" *ngIf="students.length !== 0; else notFoundMess;">
+<table *ngIf="students.length !== 0; else notFoundMess;">
   <tr>
     <th>ID</th>
     <th>Фамилия</th>
@@ -35,7 +35,7 @@
     <th>Дата рождения</th>
     <th>Средний балл</th>
   </tr>
-  <tr *ngFor="let student of students;" [ngClass]="{isFound: isFound}">
+  <tr *ngFor="let student of students;" [ngClass]="{isFound: findStud(student)}">
     <td>{{student.id}}</td>
     <td>{{student.surname}}</td>
     <td>{{student.name}}</td>
@@ -45,6 +45,9 @@
   </tr>
 </table>
 <ng-template #notFoundMess>По данному фильтру контактов не найдено</ng-template>
+
+
+
 <!--<p>{{isBadGrade?"Скрыть лузеров":"Отобразить лузеров"}}</p>-->
 <!--<div *ngIf="!isBadGrade">спрятать контент по переключателю-->
 <!--  <p>Lorem ipsum</p>-->
