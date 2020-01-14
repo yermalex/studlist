@@ -14,12 +14,55 @@
 
 <table *ngIf="students.length !== 0; else notFoundMess;">
   <tr>
-    <th>ID</th>
-    <th>Фамилия</th>
-    <th>Имя</th>
-    <th>Отчество</th>
-    <th>Дата рождения</th>
-    <th>Средний балл</th>
+    <th>ID
+      <span (click)="sortStud('id', false);"
+         [class.light]="(fieldName==='id' && descending)"
+      >▼</span>
+      <span (click)="sortStud('id', true);"
+         [class.light]="(fieldName==='id' && ascending)"
+      >▲</span>
+    </th>
+    <th >Фамилия
+      <span (click)="sortStud('surname', false);"
+         [class.light]="(fieldName==='surname' && descending)"
+      >▼</span>
+      <span (click)="sortStud('surname', true);"
+         [class.light]="(fieldName==='surname' && ascending)"
+      >▲</span>
+    </th>
+    <th>Имя
+      <span (click)="sortStud('name', false);"
+         [class.light]="(fieldName==='name' && descending)"
+      >▼</span>
+      <span (click)="sortStud('name', true);"
+         [class.light]="(fieldName==='name' && ascending)"
+      >▲</span>
+    </th>
+    <th>Отчество
+      <span (click)="sortStud('patronymic', false);"
+         [class.light]="(fieldName==='patronymic' && descending)"
+      >▼</span>
+      <span (click)="sortStud('patronymic', true);"
+         [class.light]="(fieldName==='patronymic' && ascending)"
+      >▲</span>
+    </th>
+    <th>Дата рождения
+      <span (click)="sortStud('birthday', false);"
+         [class.light]="(fieldName==='birthday' && descending)"
+      >▼</span>
+      <span (click)="sortStud('birthday', true);"
+         [class.light]="(fieldName==='birthday' && ascending)"
+      >▲</span>
+    </th>
+    <th>Средний балл
+      <span (click)="sortStud('averageMark', false);"
+         [class.light]="(fieldName==='averageMark' && descending)"
+      >▼</span>
+      <span (click)="sortStud('averageMark', true);"
+         [class.light]="(fieldName==='averageMark' && ascending)"
+      >▲</span>
+    </th>
+    <th>Опции</th>
   </tr>
   <tr *ngFor="let student of students;" [ngClass]="{isFound: findStud(student)}">
     <td>{{student.id}}</td>
@@ -28,6 +71,9 @@
     <td>{{student.patronymic}}</td>
     <td>{{student.birthday.toLocaleDateString() }}</td>
     <td [ngClass]="{badGrade: student.averageMark <= 3 && isBadGrade}">{{student.averageMark}}</td>
+    <td>
+      <button (click)="removeStud(student.id)">&times;</button>
+    </td>
   </tr>
 </table>
 <ng-template #notFoundMess>По данному фильтру студентов не найдено</ng-template>

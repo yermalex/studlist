@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Student} from '../models/student';
-import {Students} from '../student-list/students.mockup';
+import {StudentListComponent} from '../student-list/student-list.component';
 import {AppComponent} from '../app.component';
 
 @Component({
@@ -24,7 +24,7 @@ export class AddFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  addPost() {
+  createStud() {
     if (this.name.trim() && this.surname.trim() && this.patronymic.trim()) {
       const stud: Student = {
         id: this.id,
