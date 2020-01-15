@@ -17,6 +17,8 @@ export class StudentListComponent implements OnInit {
   descending = false;
   ascending = false;
   fieldName = '';
+  isActivePopup = false;
+  delStud: Student = new Student(null, null, null, null, null, null);
 
   constructor() {
   }
@@ -43,8 +45,8 @@ export class StudentListComponent implements OnInit {
     }
   }
 
-  removeStud(id: number): void {
-    Students.students = Students.students.filter(student => student.id !== id);
+  removeStud(delStud: Student): void {
+    Students.students = Students.students.filter(student => student !== delStud);
     this.students = Students.students;
     console.log(Students.students);
   }

@@ -72,17 +72,23 @@
     <td>{{student.birthday.toLocaleDateString() }}</td>
     <td [ngClass]="{badGrade: student.averageMark <= 3 && isBadGrade}">{{student.averageMark}}</td>
     <td>
-      <button (click)="removeStud(student.id)">&times;</button>
+      <div class="delete" (click)="isActivePopup=true; delStud = student" >
+        <button class="delete__button">&times;</button>
+      </div>
     </td>
   </tr>
 </table>
 <ng-template #notFoundMess>По данному фильтру студентов не найдено</ng-template>
 
 
-
-<!--<p>{{isBadGrade?"Скрыть лузеров":"Отобразить лузеров"}}</p>-->
-<!--<div *ngIf="!isBadGrade">спрятать контент по переключателю-->
-<!--  <p>Lorem ipsum</p>-->
-<!--</div>-->
-
+<div class="popup" [ngClass]="{'popup_active' : isActivePopup}">
+  <div id="confirm" class="confirm">
+    <h2>Внимание</h2>
+    <hr>
+    <p>Вы действительно хотите удалить этого студента?</p>
+    <p>{{delStud.surname}} {{delStud.name}}</p>
+    <button class="confirm__button" (click)="removeStud(delStud); isActivePopup = false">Удалить</button>
+    <button class="confirm__button confirm__button_cancel" (click)="isActivePopup = false">Отмена</button>
+  </div>
+</div>
 
