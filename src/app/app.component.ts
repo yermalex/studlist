@@ -10,8 +10,7 @@ import {Students} from './student-list/students.mockup';
 export class AppComponent {
 
   addStud(stud: Student) {
-    Students.students.unshift(stud);
-    console.log(Students.students);
+    Students.students.push(stud);
   }
 
 

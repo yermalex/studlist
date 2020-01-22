@@ -1,33 +1,113 @@
-<div class="add-form">
-  <input type="text"
-         class="formControl"
-         placeholder="ID..."
-         [(ngModel)]="id"
-  >
-  <input type="text"
-         class="formControl"
-         placeholder="Surname..."
-         [(ngModel)]="surname"
-  >
-  <input type="text"
-         class="formControl"
-         placeholder="Name..."
-         [(ngModel)]="name"
-  >
-  <input type="text"
-         class="formControl"
-         placeholder="Patronymic..."
-         [(ngModel)]="patronymic"
-  >
-  <label for="start">birthday:</label>
-  <input type="date" id="start"
-         class="formControl"
-         [(ngModel)]="birthday">
-  <input type="text"
-         class="formControl"
-         placeholder="AverageMark..."
-         [(ngModel)]="averageMark"
-  >
+<div (click)="isActivePopup=true;" >
+  <button>Добавить студента</button>
+</div>
 
-  <button class="btn" (click)="createStud()">Добавить студента</button>
+
+
+<div class="popup" [ngClass]="{'popup_active' : isActivePopup}">
+  <div id="confirm" class="confirm">
+    <div (click)="isActivePopup = false" class="close">&times;</div>
+    <h2>Добавление нового студента</h2>
+    <hr>
+      <form class="card"
+            novalidate
+            [formGroup]="addStudentForm"
+            (ngSubmit)="createStud()">
+
+        <div class="card" formGroupName="fullName">
+          <div class="form-control">
+            <!--          <label for="surname">Фамилия</label>-->
+            <input id="surname" type="text" placeholder="Фамилия.."
+                   formControlName="surname"
+                   [class.red]="addStudentForm.get('fullName').errors && addStudentForm.get('fullName').errors.restrictedFullName">
+            <div *ngIf="addStudentForm.get('fullName').get('surname').invalid && addStudentForm.get('fullName').get('surname').touched"
+                 class="validation">
+              <small *ngIf="addStudentForm.get('fullName').get('surname').errors.required">
+                Поле 'Фамилия' обязательно для заполнения!
+              </small>
+              <small *ngIf="addStudentForm.get('fullName').get('surname').errors.pattern">
+                Фамилия должна состоять только из букв и начинаться с заглавной!
+              </small>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <!--          <label for="name">Имя</label>-->
+            <input id="name" type="text" placeholder="Имя.."
+                   formControlName="name"
+                   [class.red]="addStudentForm.get('fullName').errors && addStudentForm.get('fullName').errors.restrictedFullName">
+            <div *ngIf="addStudentForm.get('fullName').get('name').invalid && addStudentForm.get('fullName').get('name').touched"
+                 class="validation">
+              <small *ngIf="addStudentForm.get('fullName').get('name').errors.required">
+                Поле 'Имя' обязательно для заполнения!
+              </small>
+              <small *ngIf="addStudentForm.get('fullName').get('name').errors.pattern">
+                Имя должно состоять только из букв и начинаться с заглавной!
+              </small>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <!--          <label for="patronymic">Отчество</label>-->
+            <input id="patronymic" type="text" placeholder="Отчество.."
+                   formControlName="patronymic"
+                   [class.red]="addStudentForm.get('fullName').errors && addStudentForm.get('fullName').errors.restrictedFullName">
+            <div *ngIf="addStudentForm.get('fullName').get('patronymic').invalid && addStudentForm.get('fullName').get('patronymic').touched"
+                 class="validation">
+              <small *ngIf="addStudentForm.get('fullName').get('patronymic').errors.required">
+                Поле 'Отчество' обязательно для заполнения!
+              </small>
+              <small *ngIf="addStudentForm.get('fullName').get('patronymic').errors.pattern">
+                Фамилия должна состоять только из букв и начинаться с заглавной!
+              </small>
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="addStudentForm.get('fullName').invalid && addStudentForm.get('fullName').touched"
+             class="validation">
+          <small *ngIf="addStudentForm.get('fullName').errors && addStudentForm.get('fullName').errors.restrictedFullName">
+            Имя не должно совпадать ни с фамилией, ни с отчеством!
+          </small>
+        </div>
+
+        <div class="form-control">
+          <!--      <label for="birthday">Дата рождения</label>-->
+          <input id="birthday" type="date" placeholder="Дата рождения.."
+                 formControlName="birthday">
+          <div *ngIf="addStudentForm.get('birthday').invalid && addStudentForm.get('birthday').touched"
+               class="validation">
+            <small *ngIf="addStudentForm.get('birthday').errors.required">
+              Поле 'Дата рождения' обязательно для заполнения!
+            </small>
+            <small *ngIf="addStudentForm.get('birthday').errors.restrictedDOF">
+              Пользователь должен быть старше 10 лет!
+            </small>
+          </div>
+        </div>
+
+        <div class="form-control">
+          <!--<label for="averageMark">Средний балл</label>-->
+          <input id="averageMark" type="text" placeholder="Средний балл.."
+                 formControlName="averageMark">
+          <div *ngIf="addStudentForm.get('averageMark').invalid && addStudentForm.get('averageMark').touched"
+               class="validation">
+            <small *ngIf="addStudentForm.get('averageMark').errors.required">
+              Поле 'Средний балл' обязательно для заполнения!
+            </small>
+            <small *ngIf="
+        addStudentForm.get('averageMark').errors.pattern ||
+        addStudentForm.get('averageMark').errors.min ||
+        addStudentForm.get('averageMark').errors.max">
+              Средний балл может быть только числом от 0 до 5!
+            </small>
+          </div>
+        </div>
+
+        <button class="btn btn-success confirm__button form-button" type="submit"
+                [ngClass]="{'form-button_enabled' : addStudentForm.valid}">Добавить</button>
+        <button class="btn confirm__button confirm__button_cancel" type="reset" (click)="resetForm()">Очистить</button>
+      </form>
+  </div>
 </div>

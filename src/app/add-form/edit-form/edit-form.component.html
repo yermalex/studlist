@@ -1,0 +1,114 @@
+<div class="redact"
+     (click)="isActivePopup=true;">
+  <button>✍✏✎</button>
+</div>
+
+
+<div class="popup" [ngClass]="{'popup_active' : isActivePopup}">
+  <div id="confirm" class="confirm">
+    <div (click)="isActivePopup = false" class="close">&times;</div>
+    <h2>Редактирование профиля студента</h2>
+    <hr>
+    <form class="card"
+          novalidate
+          [formGroup]="editStudentForm"
+          (ngSubmit)="editStud()">
+
+      <div class="card" formGroupName="fullName">
+        <div class="form-control">
+          <!--          <label for="surname">Фамилия</label>-->
+          <input id="surname" type="text" placeholder="Фамилия.."
+                 formControlName="surname"
+                 [class.red]="editStudentForm.get('fullName').errors && editStudentForm.get('fullName').errors.restrictedFullName">
+          <div *ngIf="editStudentForm.get('fullName').get('surname').invalid && editStudentForm.get('fullName').get('surname').touched"
+               class="validation">
+            <small *ngIf="editStudentForm.get('fullName').get('surname').errors.required">
+              Поле 'Фамилия' обязательно для заполнения!
+            </small>
+            <small *ngIf="editStudentForm.get('fullName').get('surname').errors.pattern">
+              Фамилия должна состоять только из букв и начинаться с заглавной!
+            </small>
+          </div>
+        </div>
+
+        <div class="form-control">
+          <!--          <label for="name">Имя</label>-->
+          <input id="name" type="text" placeholder="Имя.."
+                 formControlName="name"
+                 [class.red]="editStudentForm.get('fullName').errors && editStudentForm.get('fullName').errors.restrictedFullName">
+          <div *ngIf="editStudentForm.get('fullName').get('name').invalid && editStudentForm.get('fullName').get('name').touched"
+               class="validation">
+            <small *ngIf="editStudentForm.get('fullName').get('name').errors.required">
+              Поле 'Имя' обязательно для заполнения!
+            </small>
+            <small *ngIf="editStudentForm.get('fullName').get('name').errors.pattern">
+              Имя должно состоять только из букв и начинаться с заглавной!
+            </small>
+          </div>
+        </div>
+
+        <div class="form-control">
+          <!--          <label for="patronymic">Отчество</label>-->
+          <input id="patronymic" type="text" placeholder="Отчество.."
+                 formControlName="patronymic"
+                 [class.red]="editStudentForm.get('fullName').errors && editStudentForm.get('fullName').errors.restrictedFullName">
+          <div *ngIf="editStudentForm.get('fullName').get('patronymic').invalid && editStudentForm.get('fullName').get('patronymic').touched"
+               class="validation">
+            <small *ngIf="editStudentForm.get('fullName').get('patronymic').errors.required">
+              Поле 'Отчество' обязательно для заполнения!
+            </small>
+            <small *ngIf="editStudentForm.get('fullName').get('patronymic').errors.pattern">
+              Фамилия должна состоять только из букв и начинаться с заглавной!
+            </small>
+          </div>
+        </div>
+
+      </div>
+
+      <div *ngIf="editStudentForm.get('fullName').invalid && editStudentForm.get('fullName').touched"
+           class="validation">
+        <small *ngIf="editStudentForm.get('fullName').errors && editStudentForm.get('fullName').errors.restrictedFullName">
+          Имя не должно совпадать ни с фамилией, ни с отчеством!
+        </small>
+      </div>
+
+      <div class="form-control">
+        <!--      <label for="birthday">Дата рождения</label>-->
+        <input id="birthday" type="date" placeholder="Дата рождения.."
+               formControlName="birthday">
+        <div *ngIf="editStudentForm.get('birthday').invalid && editStudentForm.get('birthday').touched"
+             class="validation">
+          <small *ngIf="editStudentForm.get('birthday').errors.required">
+            Поле 'Дата рождения' обязательно для заполнения!
+          </small>
+          <small *ngIf="editStudentForm.get('birthday').errors.restrictedDOF">
+            Пользователь должен быть старше 10 лет!
+          </small>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <!--<label for="averageMark">Средний балл</label>-->
+        <input id="averageMark" type="text" placeholder="Средний балл.."
+               formControlName="averageMark">
+        <div *ngIf="editStudentForm.get('averageMark').invalid && editStudentForm.get('averageMark').touched"
+             class="validation">
+          <small *ngIf="editStudentForm.get('averageMark').errors.required">
+            Поле 'Средний балл' обязательно для заполнения!
+          </small>
+          <small *ngIf="
+        editStudentForm.get('averageMark').errors.pattern ||
+        editStudentForm.get('averageMark').errors.min ||
+        editStudentForm.get('averageMark').errors.max">
+            Средний балл может быть только числом от 0 до 5!
+          </small>
+        </div>
+      </div>
+
+      <button class="btn btn-success confirm__button form-button" type="submit"
+              [ngClass]="{'form-button_enabled' : editStudentForm.valid}">Редактировать</button>
+      <button class="btn confirm__button confirm__button_cancel" type="reset" (click)="resetForm()">Очистить</button>
+    </form>
+  </div>
+</div>
+

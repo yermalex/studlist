@@ -1,29 +1,28 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Student} from '../models/student';
-import {StudentListComponent} from '../student-list/student-list.component';
-import {AppComponent} from '../app.component';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MyValidators} from './my.validators';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MyValidators} from '../my.validators';
+import {StudentListComponent} from '../../student-list/student-list.component';
+import {Student} from '../../models/student';
 
 @Component({
-  selector: 'app-add-form',
-  templateUrl: './add-form.component.html',
-  styleUrls: ['./add-form.component.less']
+  selector: 'app-edit-form',
+  templateUrl: './edit-form.component.html',
+  styleUrls: ['./edit-form.component.less']
 })
-export class AddFormComponent implements OnInit {
+export class EditFormComponent implements OnInit {
 
-  @Output() onAdd: EventEmitter<Student> = new EventEmitter<Student>();
+  // @Output() onAdd: EventEmitter<Student> = new EventEmitter<Student>();
 
-  addStudentForm: FormGroup;
+  editStudentForm: FormGroup;
+  editStudent: Student = new Student(null, null, null, null, null, null);
   stud: Student = new Student(null, null, null, null, null, null);
 
   isActivePopup = false;
 
-
   constructor() { }
 
   ngOnInit() {
-    this.addStudentForm = new FormGroup( {
+    this.editStudentForm = new FormGroup( {
       fullName: new FormGroup({
         surname: new FormControl('', [Validators.required, Validators.pattern('^([А-ЯЁ]{1}[а-яё]{1,})$')]),
         name: new FormControl('', [Validators.required, Validators.pattern('^([А-ЯЁ]{1}[а-яё]{1,})$')]),
@@ -33,11 +32,12 @@ export class AddFormComponent implements OnInit {
       averageMark: new FormControl('', [Validators.required,
         Validators.min(0), Validators.max(5), Validators.pattern('^(0|[1-9]\\d*)([.]\\d+)?')])
     });
+    this.editStudentForm.patchValue({averageMark: 3});
   }
 
-  createStud() {
-    if (this.addStudentForm.valid) {
-      const formData = {...this.addStudentForm.value};
+  editStud() {
+    if (this.editStudentForm.valid) {
+      const formData = {...this.editStudentForm.value};
 
       this.stud = {
         id: StudentListComponent.getNextID() + 1,
@@ -47,12 +47,12 @@ export class AddFormComponent implements OnInit {
         birthday: new Date(formData.birthday),
         averageMark: formData.averageMark
       };
-      this.onAdd.emit(this.stud);
+      // this.onAdd.emit(this.stud);
     }
   }
   resetForm() {
     this.stud = new Student(null, null, null, null, null, null);
-    this.addStudentForm.reset();
+    this.editStudentForm.reset();
   }
 
 }

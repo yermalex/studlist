@@ -20,11 +20,14 @@ export class StudentListComponent implements OnInit {
   isActivePopup = false;
   delStud: Student = new Student(null, null, null, null, null, null);
 
+  static getNextID(): number {
+    return Students.students[Students.students.length - 1].id;
+  }
+
   constructor() {
   }
 
   ngOnInit() {
-    console.log('oninit');
     this.students = Students.students; // .sort(() => {
       // return 0.5 - Math.random();
     // });
@@ -48,7 +51,6 @@ export class StudentListComponent implements OnInit {
   removeStud(delStud: Student): void {
     Students.students = Students.students.filter(student => student !== delStud);
     this.students = Students.students;
-    console.log(Students.students);
   }
 
   sortStud(sortUsing: string, isIncreasing: boolean): void {
