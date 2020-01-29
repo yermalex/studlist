@@ -18,6 +18,8 @@ export class StudentListComponent implements OnInit {
   ascending = false;
   fieldName = '';
   isActivePopup = false;
+  isPopupOpened = false;
+  editStudent: Student = new Student(null, null, null, null, null, null);
   delStud: Student = new Student(null, null, null, null, null, null);
 
   static getNextID(): number {
@@ -104,11 +106,9 @@ export class StudentListComponent implements OnInit {
     }
   }
 
-  // функции фильтрации, нужно будет отрефакторить, оптимизировать
   splitFiltering(): void {
     if (!this.markForFiltering && !this.dateForFiltering) {
       this.students = Students.students;
-      console.log('не то не то');
     }
 
     if (this.dateForFiltering) {
@@ -116,13 +116,11 @@ export class StudentListComponent implements OnInit {
       this.students = Students.students.filter( student => {
         return student.birthday.toLocaleDateString() === dateOfBirthday.toLocaleDateString();
       });
-      console.log('дата есть');
       if (this.markForFiltering && this.dateForFiltering) {
         this.students = Students.students.filter( student => {
           return (student.averageMark.toString() === this.markForFiltering.toString())
             && (student.birthday.toLocaleDateString() === dateOfBirthday.toLocaleDateString());
         });
-        console.log('и то и то');
       }
     }
 
@@ -130,18 +128,25 @@ export class StudentListComponent implements OnInit {
       this.students = Students.students.filter( student => {
         return student.averageMark.toString() === this.markForFiltering.toString();
       });
-      console.log('оценка есть');
       if (this.markForFiltering && this.dateForFiltering) {
         const dateOfBirthday = new Date(this.dateForFiltering);
         this.students = Students.students.filter( student => {
           return (student.averageMark.toString() === this.markForFiltering.toString())
             && (student.birthday.toLocaleDateString() === dateOfBirthday.toLocaleDateString());
         });
-        console.log('и то и то');
       }
     }
   }
 
-
+  addEditStud(stud: Student) {
+    const editableStud = Students.students.find( student => {
+      return student.id === stud.id;
+    });
+    editableStud.surname = stud.surname;
+    editableStud.name = stud.name;
+    editableStud.patronymic = stud.patronymic;
+    editableStud.birthday = stud.birthday;
+    editableStud.averageMark = stud.averageMark;
+  }
 
 }
