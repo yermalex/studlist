@@ -1,12 +1,6 @@
-<div class="redact"
-     (click)="isActivePopup=true;">
-  <button>✍✏✎</button>
-</div>
-
-
-<div class="popup" [ngClass]="{'popup_active' : isActivePopup}">
+<div class="popup">
   <div id="confirm" class="confirm">
-    <div (click)="isActivePopup = false" class="close">&times;</div>
+    <div (click)="emitClosePopup()" class="close">&times;</div>
     <h2>Редактирование профиля студента</h2>
     <hr>
     <form class="card"

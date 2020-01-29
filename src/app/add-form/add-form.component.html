@@ -1,12 +1,6 @@
-<div (click)="isActivePopup=true;" >
-  <button>Добавить студента</button>
-</div>
-
-
-
-<div class="popup" [ngClass]="{'popup_active' : isActivePopup}">
+<div class="popup">
   <div id="confirm" class="confirm">
-    <div (click)="isActivePopup = false" class="close">&times;</div>
+    <div (click)="emitClosePopup()" class="close">&times;</div>
     <h2>Добавление нового студента</h2>
     <hr>
       <form class="card"

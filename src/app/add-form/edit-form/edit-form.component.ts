@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MyValidators} from '../my.validators';
 import {StudentListComponent} from '../../student-list/student-list.component';
@@ -11,13 +11,13 @@ import {Student} from '../../models/student';
 })
 export class EditFormComponent implements OnInit {
 
-  // @Output() onAdd: EventEmitter<Student> = new EventEmitter<Student>();
+  @Input() editStudent: Student;
+  @Output() onAdd: EventEmitter<Student> = new EventEmitter<Student>();
+  @Output() closePopup: EventEmitter<void> = new EventEmitter<void>();
 
   editStudentForm: FormGroup;
-  editStudent: Student = new Student(null, null, null, null, null, null);
-  stud: Student = new Student(null, null, null, null, null, null);
 
-  isActivePopup = false;
+  stud: Student = new Student(null, null, null, null, null, null);
 
   constructor() { }
 
@@ -32,7 +32,9 @@ export class EditFormComponent implements OnInit {
       averageMark: new FormControl('', [Validators.required,
         Validators.min(0), Validators.max(5), Validators.pattern('^(0|[1-9]\\d*)([.]\\d+)?')])
     });
-    this.editStudentForm.patchValue({averageMark: 3});
+    this.editStudentForm.patchValue({fullName: this.editStudent});
+    this.editStudentForm.patchValue({birthday: new Date(this.editStudent.birthday).toISOString().substring(0, 10)});
+    this.editStudentForm.patchValue({averageMark: this.editStudent.averageMark});
   }
 
   editStud() {
@@ -40,19 +42,24 @@ export class EditFormComponent implements OnInit {
       const formData = {...this.editStudentForm.value};
 
       this.stud = {
-        id: StudentListComponent.getNextID() + 1,
+        id: this.editStudent.id,
         surname: formData.fullName.surname,
         name: formData.fullName.name,
         patronymic: formData.fullName.patronymic,
         birthday: new Date(formData.birthday),
         averageMark: formData.averageMark
       };
-      // this.onAdd.emit(this.stud);
+      this.onAdd.emit(this.stud);
+      this.emitClosePopup();
     }
   }
   resetForm() {
     this.stud = new Student(null, null, null, null, null, null);
     this.editStudentForm.reset();
+  }
+
+  emitClosePopup() {
+    this.closePopup.emit();
   }
 
 }

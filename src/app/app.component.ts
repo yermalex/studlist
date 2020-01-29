@@ -9,6 +9,8 @@ import {Students} from './student-list/students.mockup';
 })
 export class AppComponent {
 
+  isPopupOpened = false;
+
   addStud(stud: Student) {
     Students.students.push(stud);
   }

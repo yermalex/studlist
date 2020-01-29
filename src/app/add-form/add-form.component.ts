@@ -1,8 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Student} from '../models/student';
 import {StudentListComponent} from '../student-list/student-list.component';
-import {AppComponent} from '../app.component';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MyValidators} from './my.validators';
 
 @Component({
@@ -13,17 +12,16 @@ import {MyValidators} from './my.validators';
 export class AddFormComponent implements OnInit {
 
   @Output() onAdd: EventEmitter<Student> = new EventEmitter<Student>();
+  @Output() closePopup: EventEmitter<void> = new EventEmitter<void>();
 
   addStudentForm: FormGroup;
   stud: Student = new Student(null, null, null, null, null, null);
 
-  isActivePopup = false;
-
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
-    this.addStudentForm = new FormGroup( {
+    this.addStudentForm = new FormGroup({
       fullName: new FormGroup({
         surname: new FormControl('', [Validators.required, Validators.pattern('^([А-ЯЁ]{1}[а-яё]{1,})$')]),
         name: new FormControl('', [Validators.required, Validators.pattern('^([А-ЯЁ]{1}[а-яё]{1,})$')]),
@@ -48,11 +46,17 @@ export class AddFormComponent implements OnInit {
         averageMark: formData.averageMark
       };
       this.onAdd.emit(this.stud);
+      this.emitClosePopup();
     }
   }
+
   resetForm() {
     this.stud = new Student(null, null, null, null, null, null);
     this.addStudentForm.reset();
+  }
+
+  emitClosePopup() {
+    this.closePopup.emit();
   }
 
 }

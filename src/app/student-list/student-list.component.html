@@ -72,7 +72,17 @@
     <td>{{student.birthday.toLocaleDateString() }}</td>
     <td [ngClass]="{badGrade: student.averageMark <= 3 && isBadGrade}">{{student.averageMark}}</td>
     <td>
-      <app-edit-form></app-edit-form>
+
+      <button (click)="isPopupOpened = true; editStudent = student">
+        ✍
+      </button>
+
+      <app-edit-form *ngIf="isPopupOpened"
+      (onAdd)="addEditStud($event)"
+      (closePopup)="isPopupOpened = false"
+                     [editStudent]="editStudent"
+      >
+      </app-edit-form>
       <div class="delete" (click)="isActivePopup=true; delStud = student" >
         <button class="delete__button">&times;</button>
       </div>

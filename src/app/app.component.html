@@ -5,7 +5,11 @@
     </h1>
   </div>
   <div class="content">
-    <app-add-form (onAdd)="addStud($event)"></app-add-form>
+    <button (click)="isPopupOpened = true">Добавить студента</button>
+    <app-add-form *ngIf="isPopupOpened"
+                  (onAdd)="addStud($event)"
+                  (closePopup)="isPopupOpened = false"
+    ></app-add-form>
     <app-student-list></app-student-list>
   </div>
 </div>
