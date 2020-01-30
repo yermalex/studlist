@@ -1,13 +1,13 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Student} from '../models/student';
-import {StudentListComponent} from '../student-list/student-list.component';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MyValidators} from './my.validators';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Student } from "../models/student";
+import { StudentListComponent } from "../student-list/student-list.component";
+import { MyValidators } from "./my.validators";
 
 @Component({
-  selector: 'app-add-form',
-  templateUrl: './add-form.component.html',
-  styleUrls: ['./add-form.component.less']
+  selector: "app-add-form",
+  templateUrl: "./add-form.component.html",
+  styleUrls: ["./add-form.component.less"]
 })
 export class AddFormComponent implements OnInit {
 
@@ -17,23 +17,20 @@ export class AddFormComponent implements OnInit {
   addStudentForm: FormGroup;
   stud: Student = new Student(null, null, null, null, null, null);
 
-  constructor() {
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.addStudentForm = new FormGroup({
       fullName: new FormGroup({
-        surname: new FormControl('', [Validators.required, Validators.pattern('^([А-ЯЁ]{1}[а-яё]{1,})$')]),
-        name: new FormControl('', [Validators.required, Validators.pattern('^([А-ЯЁ]{1}[а-яё]{1,})$')]),
-        patronymic: new FormControl('', [Validators.required, Validators.pattern('^([А-ЯЁ]{1}[а-яё]{1,})$')])
+        surname: new FormControl("", [Validators.required, Validators.pattern("^([А-ЯЁ]{1}[а-яё]{1,})$")]),
+        name: new FormControl("", [Validators.required, Validators.pattern("^([А-ЯЁ]{1}[а-яё]{1,})$")]),
+        patronymic: new FormControl("", [Validators.required, Validators.pattern("^([А-ЯЁ]{1}[а-яё]{1,})$")])
       }, [MyValidators.restrictedFullName]),
-      birthday: new FormControl('', [Validators.required, MyValidators.restrictedDOF]),
-      averageMark: new FormControl('', [Validators.required,
-        Validators.min(0), Validators.max(5), Validators.pattern('^(0|[1-9]\\d*)([.]\\d+)?')])
+      birthday: new FormControl("", [Validators.required, MyValidators.restrictedDOF]),
+      averageMark: new FormControl("", [Validators.required,
+        Validators.min(0), Validators.max(5), Validators.pattern("^(0|[1-9]\\d*)([.]\\d+)?")])
     });
   }
 
-  createStud() {
+  createStud(): void {
     if (this.addStudentForm.valid) {
       const formData = {...this.addStudentForm.value};
 
@@ -50,12 +47,12 @@ export class AddFormComponent implements OnInit {
     }
   }
 
-  resetForm() {
+  resetForm(): void {
     this.stud = new Student(null, null, null, null, null, null);
     this.addStudentForm.reset();
   }
 
-  emitClosePopup() {
+  emitClosePopup(): void {
     this.closePopup.emit();
   }
 

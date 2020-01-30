@@ -1,15 +1,19 @@
-<p>чек лузеров</p>
-<div class="toggleBadGrade" >
-  <input class="tgl tgl-skewed" id="cb3" type="checkbox" (click)="toggleBadGrade()"/>
-  <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="cb3"></label>
+<div class="toggle-bad-grade" >
+  <label class="toggle-bad-grade__text">ОТЧИСЛЕНИЕ</label>
+  <input class="tgl tgl-skewed" id="toggler" type="checkbox" (click)="toggleBadGrade()"/>
+  <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="toggler"></label>
 </div>
 
+<div class="filtration">
+  <label class="filtration__text">ФИЛЬТРАЦИЯ</label>
+  <input class="filtration__input filtration__average-mark" type="text" placeholder="средний балл" [(ngModel)]="markForFiltering" (ngModelChange)="splitFiltering()">
+  <input class="filtration__input filtration__birthday" type="date" placeholder="По дате рождения" [(ngModel)]="dateForFiltering" (ngModelChange)="splitFiltering()">
+</div>
 
-<input type="text" placeholder="ср балл" [(ngModel)]="markForFiltering" (ngModelChange)="splitFiltering()">
-<input type="date" placeholder="др" [(ngModel)]="dateForFiltering" (ngModelChange)="splitFiltering()">
-
-
-<input type="text" class="input"  [(ngModel)]="inputValue">
+<div class="search">
+  <label class="search__text">ПОИСК</label>
+  <input class="search__input" type="text" placeholder="ФИО" [(ngModel)]="inputValue">
+</div>
 
 
 <table *ngIf="students.length !== 0; else notFoundMess;">
@@ -72,25 +76,27 @@
     <td>{{student.birthday.toLocaleDateString() }}</td>
     <td [ngClass]="{badGrade: student.averageMark <= 3 && isBadGrade}">{{student.averageMark}}</td>
     <td>
-
-      <button (click)="isPopupOpened = true; editStudent = student">
-        ✍
-      </button>
-
-      <app-edit-form *ngIf="isPopupOpened"
-      (onAdd)="addEditStud($event)"
-      (closePopup)="isPopupOpened = false"
-                     [editStudent]="editStudent"
-      >
-      </app-edit-form>
-      <div class="delete" (click)="isActivePopup=true; delStud = student" >
-        <button class="delete__button">&times;</button>
+      <div class="options__item">
+        <button (click)="isPopupOpened = true; editStudent = student">
+          ✍
+        </button>
+      </div>
+      <div class="options__item">
+        <div (click)="isActivePopup=true; delStud = student" >
+          <button>&times;</button>
+        </div>
       </div>
     </td>
   </tr>
 </table>
-<ng-template #notFoundMess>По данному фильтру студентов не найдено</ng-template>
+<ng-template #notFoundMess> Не найдено!</ng-template>
 
+<app-edit-form *ngIf="isPopupOpened"
+               (onAdd)="addEditStud($event)"
+               (closePopup)="isPopupOpened = false"
+               [editStudent]="editStudent"
+>
+</app-edit-form>
 
 <div class="popup" [ngClass]="{'popup_active' : isActivePopup}">
   <div id="confirm" class="confirm">

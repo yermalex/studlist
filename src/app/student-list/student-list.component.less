@@ -1,67 +1,90 @@
-:host {
-  display: block;
-  .input {
+.filtration {
+  margin-top: 25px;
+  display:inline-block;
+  &__text {
+    margin-right: 10px;
+  }
+  &__input {
     border: 1px solid #cccccc;
     border-radius: 5px;
-    padding: 8px 16px;
+    padding: 5px 15px;
     height: 40px;
-    line-height: 22px;
-    margin-bottom: 40px;
-    width: 100%;
+    width: 300px;
   }
-
-  .badGrade {
-    color: rgb(255, 0, 0);
-    font-weight: 900;
+  &__average-mark {
+    width: 128px;
+    margin-right: 8px;
   }
-
-  .isFound {
-    font-style: italic;
-    background-color: rgba(0, 255, 5, 0.21);
+  &__birthday {
+    width: 158px;
   }
+}
 
-  .light {
-    color: lawngreen;
+.search {
+  float: right;
+  margin-top: 25px;
+  display:inline-block;
+  &__text {
+    margin-right: 10px;
   }
-
-  .redact {
-    font-size: 20px;
+  &__input {
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 5px 15px;
+    height: 40px;
+    width: 350px;
   }
 }
 
 table {
   overflow:hidden;
   border-spacing: 0;
-  border: 1px solid #d3d3d3;
-  width:70%;
-  margin:5% auto ;
+  border: 1px solid grey;
+  margin: 25px auto;
   border-radius:5px;
 }
 
 th, td {
-  padding: 20px 25px;
+  padding: 8px 25px;
   text-align:center;
 }
 
 th {
-  padding-top: 20px;
-  text-shadow: 1px 1px 1px #fff;
-  background:#e8eaeb;
+  padding: 20px;
 }
 
 td {
-  border-top:1px solid #e0e0e0;
-  border-right:1px solid #e0e0e0;
+  border-top:1px solid grey;
+  border-right:1px solid grey;
 }
 
+.badGrade {
+  color: rgb(255, 0, 0);
+  font-weight: 900;
+}
 
+.isFound {
+  background-color: #2EE59D;
+}
+
+.light {
+  color: #2EE59D;
+}
+.options__item {
+  display:inline-block;
+  margin: 3px;
+}
 
 //======= toggler =======
-.toggleBadGrade {
-  text-align: center;
+.toggle-bad-grade {
+  margin-top: -35px;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  margin: 10px;
+  &__text {
+    padding: 10px;
+    font-weight: 500;
+  }
 }
 .tgl {
   display: none;
@@ -153,8 +176,8 @@ td {
 .tgl-skewed:checked + .tgl-btn:active:after {
   left: 10%;
 }
-
 ///////////////////////////////////////////////
+
 .close {
   position: absolute;
   top: 0;
@@ -173,7 +196,6 @@ td {
   height: 100vh;
   background: rgba(0,0,0,0.5);
   display: none;
-
   &_active {
     transition-delay: 10s;
     display: block;
@@ -195,24 +217,19 @@ td {
   width: 400px;
   height: 200px;
   margin: auto;
-
   transition: 0.3s ease-in;
 
   &__button {
-
     outline: none;
     border: 1px solid lightgray;
     border-radius: 5px;
     background-color: orange;
     color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-
     margin: 25px;
     padding: 10px 25px;
     font-weight: bold;
-
     transition: .2s ease-out;
-
     &:hover {
       background-color: rgba(245, 100, 51, 0.89);
       border: 1px solid orangered;
@@ -220,10 +237,8 @@ td {
       transition: transform 500ms;
       cursor: pointer;
     }
-
     &_cancel {
       background-color: #9a9a9a;
-
       &:hover {
         background-color: #adadad;
         border: 1px solid #9a9a9a;

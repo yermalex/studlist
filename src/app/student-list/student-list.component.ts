@@ -1,22 +1,22 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { Student} from '../models/student';
-import { Students} from './students.mockup';
+import { Component, OnInit } from "@angular/core";
+import { Student } from "../models/student";
+import { Students } from "./students.mockup";
 
 @Component({
-  selector: 'app-student-list',
-  templateUrl: './student-list.component.html',
-  styleUrls: ['./student-list.component.less']
+  selector: "app-student-list",
+  templateUrl: "./student-list.component.html",
+  styleUrls: ["./student-list.component.less"]
 })
 export class StudentListComponent implements OnInit {
 
   public students: Student[] = [];
   isBadGrade = false;
-  inputValue = '';
+  inputValue = "";
   markForFiltering: number;
   dateForFiltering: Date;
   descending = false;
   ascending = false;
-  fieldName = '';
+  fieldName = "";
   isActivePopup = false;
   isPopupOpened = false;
   editStudent: Student = new Student(null, null, null, null, null, null);
@@ -26,13 +26,8 @@ export class StudentListComponent implements OnInit {
     return Students.students[Students.students.length - 1].id;
   }
 
-  constructor() {
-  }
-
-  ngOnInit() {
-    this.students = Students.students; // .sort(() => {
-      // return 0.5 - Math.random();
-    // });
+  ngOnInit(): void {
+    this.students = Students.students;
   }
 
   toggleBadGrade(): void {
@@ -44,8 +39,8 @@ export class StudentListComponent implements OnInit {
       return false;
     }
     if (student.surname.toLocaleLowerCase().includes(this.inputValue.toLowerCase())
-    || student.name.toLocaleLowerCase().includes(this.inputValue.toLowerCase())
-    || student.patronymic.toLocaleLowerCase().includes(this.inputValue.toLowerCase())) {
+      || student.name.toLocaleLowerCase().includes(this.inputValue.toLowerCase())
+      || student.patronymic.toLocaleLowerCase().includes(this.inputValue.toLowerCase())) {
       return true;
     }
   }
@@ -56,7 +51,7 @@ export class StudentListComponent implements OnInit {
   }
 
   sortStud(sortUsing: string, isIncreasing: boolean): void {
-    if (sortUsing === 'birthday') {
+    if (sortUsing === "birthday") {
       this.fieldName = sortUsing;
       if (isIncreasing) {
         this.descending = false;
@@ -72,7 +67,7 @@ export class StudentListComponent implements OnInit {
         });
       }
     }
-    if (sortUsing === 'id' || sortUsing === 'averageMark') {
+    if (sortUsing === "id" || sortUsing === "averageMark") {
       this.fieldName = sortUsing;
       if (isIncreasing) {
         this.descending = false;
@@ -88,7 +83,7 @@ export class StudentListComponent implements OnInit {
         });
       }
     }
-    if (sortUsing === 'surname' || sortUsing === 'name' || sortUsing === 'patronymic') {
+    if (sortUsing === "surname" || sortUsing === "name" || sortUsing === "patronymic") {
       this.fieldName = sortUsing;
       if (isIncreasing) {
         this.descending = false;

@@ -1,11 +1,11 @@
 <div class="studlist">
   <div class="header">
-    <h1 class="title">
-      Student book
+    <h1 class="header__title">
+      StudBook
     </h1>
   </div>
   <div class="content">
-    <button (click)="isPopupOpened = true">Добавить студента</button>
+    <button class="btn-add-student" (click)="isPopupOpened = true">Добавить студента</button>
     <app-add-form *ngIf="isPopupOpened"
                   (onAdd)="addStud($event)"
                   (closePopup)="isPopupOpened = false"

@@ -4,17 +4,49 @@
 }
 .header {
   align-items: center;
-  background-color: #cccccc;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 1px 0 3px rgba(0,0,0,.3);
   display: flex;
   justify-content: center;
-  height: 100px;
+  height: 60px;
   text-align: center;
 }
-.title {
-  font-size: 50px;
+.header__title {
+  font-size: 36px;
+  color: grey;
+  transition: .7s;
+}
+.header__title:hover {
+  //color: #2EE59D;
+  text-shadow: 1px 1px 8px rgba(46, 229, 157, 0.8);
 }
 .content {
   margin: 0 auto;
-  padding: 20px;
-  width: 1000px;
+  padding: 25px;
+  width: 1140px;
+}
+.btn-add-student {
+  padding: 0 15px;
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  height: 40px;
+  border-radius: 20px;
+  border-style: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: #524f4e;
+  background: white;
+  box-shadow: 0 8px 15px rgba(0,0,0,.1);
+  transition: .3s;
+}
+.btn-add-student:hover {
+  background: #2EE59D;
+  box-shadow: 0 15px 20px rgba(46,229,157,.4);
+  color: white;
+  transform: translateY(-7px);
 }

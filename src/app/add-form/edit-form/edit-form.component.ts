@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MyValidators} from '../my.validators';
-import {StudentListComponent} from '../../student-list/student-list.component';
-import {Student} from '../../models/student';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Student } from "../../models/student";
+import { MyValidators } from "../my.validators";
 
 @Component({
-  selector: 'app-edit-form',
-  templateUrl: './edit-form.component.html',
-  styleUrls: ['./edit-form.component.less']
+  selector: "app-edit-form",
+  templateUrl: "./edit-form.component.html",
+  styleUrls: ["../add-form.component.less"]
 })
 export class EditFormComponent implements OnInit {
 
@@ -19,25 +18,23 @@ export class EditFormComponent implements OnInit {
 
   stud: Student = new Student(null, null, null, null, null, null);
 
-  constructor() { }
-
-  ngOnInit() {
-    this.editStudentForm = new FormGroup( {
+  ngOnInit(): void {
+    this.editStudentForm = new FormGroup({
       fullName: new FormGroup({
-        surname: new FormControl('', [Validators.required, Validators.pattern('^([А-ЯЁ]{1}[а-яё]{1,})$')]),
-        name: new FormControl('', [Validators.required, Validators.pattern('^([А-ЯЁ]{1}[а-яё]{1,})$')]),
-        patronymic: new FormControl('', [Validators.required, Validators.pattern('^([А-ЯЁ]{1}[а-яё]{1,})$')])
+        surname: new FormControl("", [Validators.required, Validators.pattern("^([А-ЯЁ]{1}[а-яё]{1,})$")]),
+        name: new FormControl("", [Validators.required, Validators.pattern("^([А-ЯЁ]{1}[а-яё]{1,})$")]),
+        patronymic: new FormControl("", [Validators.required, Validators.pattern("^([А-ЯЁ]{1}[а-яё]{1,})$")])
       }, [MyValidators.restrictedFullName]),
-      birthday: new FormControl('', [Validators.required, MyValidators.restrictedDOF]),
-      averageMark: new FormControl('', [Validators.required,
-        Validators.min(0), Validators.max(5), Validators.pattern('^(0|[1-9]\\d*)([.]\\d+)?')])
+      birthday: new FormControl("", [Validators.required, MyValidators.restrictedDOF]),
+      averageMark: new FormControl("", [Validators.required,
+        Validators.min(0), Validators.max(5), Validators.pattern("^(0|[1-9]\\d*)([.]\\d+)?")])
     });
     this.editStudentForm.patchValue({fullName: this.editStudent});
     this.editStudentForm.patchValue({birthday: new Date(this.editStudent.birthday).toISOString().substring(0, 10)});
     this.editStudentForm.patchValue({averageMark: this.editStudent.averageMark});
   }
 
-  editStud() {
+  editStud(): void {
     if (this.editStudentForm.valid) {
       const formData = {...this.editStudentForm.value};
 
@@ -58,7 +55,7 @@ export class EditFormComponent implements OnInit {
     this.editStudentForm.reset();
   }
 
-  emitClosePopup() {
+  emitClosePopup(): void {
     this.closePopup.emit();
   }
 

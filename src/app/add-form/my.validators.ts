@@ -1,11 +1,11 @@
-import {FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup } from "@angular/forms";
 
 export class MyValidators {
 
   static restrictedFullName(group: FormGroup): {[key: string]: boolean} {
-    const surname = group.get('surname').value;
-    const name = group.get('name').value;
-    const patronymic = group.get('patronymic').value;
+    const surname = group.get("surname").value;
+    const name = group.get("name").value;
+    const patronymic = group.get("patronymic").value;
 
     if (name && (name === surname ||  name === patronymic)) {
       return {restrictedFullName: true};

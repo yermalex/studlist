@@ -11,9 +11,8 @@ export class AppComponent {
 
   isPopupOpened = false;
 
-  addStud(stud: Student) {
+  addStud(stud: Student): void {
     Students.students.push(stud);
   }
-
 
 }
